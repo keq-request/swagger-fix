@@ -30,10 +30,10 @@ describe("fixSwagger", () => {
 
     const output = fixSwagger(input);
 
-    expect(output).toHaveProperty("definitions.ceShiName");
+    expect(output).toHaveProperty("definitions.CeShiName");
     expect(output).toHaveProperty(
       "paths./test.get.responses.200.$ref",
-      "#/definitions/ceShiName",
+      "#/definitions/CeShiName",
     );
     expect(output).toHaveProperty("paths./test.get.operationId", "ceShiId");
   });
@@ -68,6 +68,14 @@ describe("fixSwagger", () => {
               },
             },
           },
+          delete: {
+            operationId: "Test",
+            responses: {
+              200: {
+                $ref: "#/components/schemas/测试name",
+              },
+            },
+          }
         },
         "/test2": undefined,
       },
@@ -91,18 +99,20 @@ describe("fixSwagger", () => {
 
     const output = fixSwagger(input);
 
-    expect(output).toHaveProperty("components.schemas.ceShiName1");
+    expect(output).toHaveProperty("components.schemas.CeShiName1");
     expect(output).toHaveProperty(
       "paths./test.get.responses.200.$ref",
-      "#/components/schemas/ceShiName1",
+      "#/components/schemas/CeShiName1",
     );
     expect(output).toHaveProperty("paths./test.get.operationId", "ceShiId");
-    expect(output).toHaveProperty("components.schemas.ceShiName2");
+    expect(output).toHaveProperty("components.schemas.CeShiName2");
     expect(output).toHaveProperty(
       "paths./test.post.responses.200.$ref",
-      "#/components/schemas/ceShiName2",
+      "#/components/schemas/CeShiName2",
     );
     expect(output).toHaveProperty("paths./test.post.operationId", "_1CeShiId");
+    expect(output).toHaveProperty("paths./test.put.operationId", "_yield");
+    expect(output).toHaveProperty("paths./test.delete.operationId", "Test");
   });
 
   it("should handle invalid input", () => {

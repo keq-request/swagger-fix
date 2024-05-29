@@ -10,27 +10,7 @@ function isV3(input: OpenAPI.Document): input is OpenAPIV3.Document {
   return "openapi" in input && input.openapi.startsWith("3.");
 }
 
-function convertStrToValid(word: string) {
-  const pinyinArr = pinyin(word, {
-    toneType: "none",
-    type: "array",
-    nonZh: "consecutive",
-    v: true,
-  });
-  const pinyinResult = pinyinArr.reduce((acc, cur) => {
-    if (!acc) return cur;
-    if (!cur) return acc;
-    return acc + cur.charAt(0).toUpperCase() + cur.slice(1);
-  }, "");
-
-  let validName = pinyinResult.replace(/[^a-zA-Z0-9_$]/g, "");
-  if (/^[A-Z]/.test(validName)) {
-    validName = validName.charAt(0).toLowerCase() + validName.slice(1);
-  }
-  if (validName === "" || !isNaN(parseInt(validName[0]))) {
-    validName = "_" + validName;
-  }
-
+function convertStrToValid(word: string, fileNamingStyle: 'camelCase' | 'pascalCase') {
   const reservedWords = [
     "break",
     "case",
@@ -92,8 +72,33 @@ function convertStrToValid(word: string) {
     "transient",
     "volatile",
   ];
+  if (/^[a-zA-Z0-9_$]+$/.test(word) && !/^[0-9]/.test(word) && !reservedWords.includes(word)) {
+    return word;
+  }
+  const pinyinArr = pinyin(word, {
+    toneType: "none",
+    type: "array",
+    nonZh: "consecutive",
+    v: true,
+  });
+  const pinyinResult = pinyinArr.reduce((acc, cur) => {
+    if (!acc) return cur;
+    if (!cur) return acc;
+    return acc + cur.charAt(0).toUpperCase() + cur.slice(1);
+  }, "");
+
+  let validName = pinyinResult.replace(/[^a-zA-Z0-9_$]/g, "");
+  if (fileNamingStyle === 'camelCase') {
+    validName = validName.charAt(0).toLowerCase() + validName.slice(1);
+  } else if (fileNamingStyle === 'pascalCase') {
+    validName = validName.charAt(0).toUpperCase() + validName.slice(1);
+  }
+  if (validName === "" || !isNaN(parseInt(validName[0]))) {
+    validName = "_" + validName;
+  }
+
   if (reservedWords.includes(validName)) {
-    validName += "_";
+    validName = "_" + validName;
   }
 
   return validName;
@@ -118,7 +123,7 @@ function getPinyinNamesMapAndNewSchemas(input: Record<string, any>) {
   const output: Record<string, any> = {};
   const pinyinNamesMap = new Map<string, Set<string>>();
   for (const schemaName of Object.keys(input)) {
-    const schemaPinyin = convertStrToValid(schemaName);
+    const schemaPinyin = convertStrToValid(schemaName, 'pascalCase');
     const set = pinyinNamesMap.get(schemaPinyin) || new Set<string>();
     set.add(schemaName);
     pinyinNamesMap.set(schemaPinyin, set);
@@ -189,7 +194,7 @@ function convertV2OperationIds(input: OpenAPIV2.Document) {
           "operationId" in operation &&
           operation.operationId
         ) {
-          const operationPinyin = convertStrToValid(operation.operationId);
+          const operationPinyin = convertStrToValid(operation.operationId, 'camelCase');
           const set =
             pinyinOperationsMap.get(operationPinyin) || new Set<string>();
           set.add(operation.operationId);
@@ -247,7 +252,7 @@ function convertV3OperationIds(input: OpenAPIV3.Document) {
           "operationId" in operation &&
           operation.operationId
         ) {
-          const operationPinyin = convertStrToValid(operation.operationId);
+          const operationPinyin = convertStrToValid(operation.operationId, 'camelCase');
           const set =
             pinyinOperationsMap.get(operationPinyin) || new Set<string>();
           set.add(operation.operationId);

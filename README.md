@@ -7,6 +7,7 @@
 [![downloads](https://img.shields.io/npm/dm/swagger-fix.svg?logo=npm&style=for-the-badge)][npm]
 [![dependencies](https://img.shields.io/librariesio/release/npm/swagger-fix?logo=npm&style=for-the-badge)][npm]
 [![license](https://img.shields.io/npm/l/swagger-fix.svg?logo=github&style=for-the-badge)][npm]
+[![Codecov](https://img.shields.io/codecov/c/gh/keq-request/swagger-fix?logo=codecov&token=PLF0DT6869&style=for-the-badge)](https://codecov.io/gh/keq-request/swagger-fix)
 
 <!-- description -->
 
