@@ -1,6 +1,6 @@
 {
   "name": "swagger-fix",
-  "version": "0.0.0-development",
+  "version": "1.0.2",
   "description": "Fix invalid content in swagger file",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
