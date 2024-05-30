@@ -298,7 +298,7 @@ function convertOperationIds(input: OpenAPI.Document) {
   }
 }
 
-function fixSwagger(input: OpenAPI.Document) {
+function fixSwagger<T extends OpenAPI.Document>(input: T): T {
   const output = R.clone(input);
   const schemaNamePinyinMap = convertSchemas(output);
   convertSchemaReferences(output, schemaNamePinyinMap);
