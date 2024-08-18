@@ -166,7 +166,7 @@ function convertSchemaReferences(
             `/${namePinyinMap.get(schemaName)}`,
           );
         }
-      } else if (typeof value === "object") {
+      } else if (typeof value === "object" && value !== null) {
         stack.push(value);
       }
     }
