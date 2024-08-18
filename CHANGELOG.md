@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/keq-request/swagger-fix/compare/v1.0.3...v1.0.4) (2024-08-18)
+
+
+### Bug Fixes
+
+* throw error when input json with null property ([af92de6](https://github.com/keq-request/swagger-fix/commit/af92de6e8a965e4467b2a95fcdb14f1651dcb578))
+
 ## [1.0.3](https://github.com/keq-request/swagger-fix/compare/v1.0.2...v1.0.3) (2024-05-30)
 
 
