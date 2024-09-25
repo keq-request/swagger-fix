@@ -24,7 +24,7 @@
     "convert",
     "pinyin"
   ],
-  "author": "Winter Zhu",
+  "author": "zbqsfs",
   "license": "MIT",
   "packageManager": "pnpm@9.11.0",
   "devDependencies": {
