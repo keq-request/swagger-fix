@@ -12,14 +12,14 @@ describe("fixSwagger", () => {
             operationId: "测试id",
             responses: {
               200: {
-                $ref: "#/definitions/测试name",
+                $ref: "#/definitions/测试(name)",
               },
             },
           },
         },
       },
       definitions: {
-        测试name: {
+        '测试(name)': {
           type: "object",
           properties: {
             name: { type: "string" },
@@ -30,10 +30,10 @@ describe("fixSwagger", () => {
 
     const output = fixSwagger(input);
 
-    expect(output).toHaveProperty("definitions.CeShiName");
+    expect(output).toHaveProperty("definitions.CeShiname");
     expect(output).toHaveProperty(
       "paths./test.get.responses.200.$ref",
-      "#/definitions/CeShiName",
+      "#/definitions/CeShiname",
     );
     expect(output).toHaveProperty("paths./test.get.operationId", "ceShiId");
   });

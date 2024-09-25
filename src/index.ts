@@ -161,10 +161,7 @@ function convertSchemaReferences(
       if (key === "$ref" && typeof value === "string") {
         const schemaName = value.split("/").pop();
         if (schemaName && namePinyinMap.has(schemaName)) {
-          current[key] = value.replace(
-            new RegExp(`/${schemaName}$`),
-            `/${namePinyinMap.get(schemaName)}`,
-          );
+          current[key] = `${value.split("/").slice(0, -1).join("/")}/${namePinyinMap.get(schemaName)}`;
         }
       } else if (typeof value === "object" && value !== null) {
         stack.push(value);
