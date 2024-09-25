@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/keq-request/swagger-fix/compare/v1.0.4...v1.0.5) (2024-09-25)
+
+
+### Bug Fixes
+
+* special characters cause Chinese replacement to fail ([8e68a14](https://github.com/keq-request/swagger-fix/commit/8e68a149b4495b2c89088b62dfc6f32fa4651419))
+
 ## [1.0.4](https://github.com/keq-request/swagger-fix/compare/v1.0.3...v1.0.4) (2024-08-18)
 
 
